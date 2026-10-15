@@ -1,0 +1,265 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <list>
+          <option value="annotated-types" />
+          <option value="anyio" />
+          <option value="argon2-cffi" />
+          <option value="argon2-cffi-bindings" />
+          <option value="arrow" />
+          <option value="asttokens" />
+          <option value="async-lru" />
+          <option value="attrs" />
+          <option value="Babel" />
+          <option value="beautifulsoup4" />
+          <option value="bleach" />
+          <option value="Cartopy" />
+          <option value="certifi" />
+          <option value="cffi" />
+          <option value="charset-normalizer" />
+          <option value="cloudpickle" />
+          <option value="comm" />
+          <option value="contourpy" />
+          <option value="cycler" />
+          <option value="dacite" />
+          <option value="debugpy" />
+          <option value="decorator" />
+          <option value="defusedxml" />
+          <option value="efficient-apriori" />
+          <option value="exceptiongroup" />
+          <option value="executing" />
+          <option value="fastjsonschema" />
+          <option value="featuretools" />
+          <option value="fonttools" />
+          <option value="fqdn" />
+          <option value="h11" />
+          <option value="holidays" />
+          <option value="htmlmin" />
+          <option value="httpcore" />
+          <option value="httpx" />
+          <option value="idna" />
+          <option value="ImageHash" />
+          <option value="importlib_resources" />
+          <option value="ipykernel" />
+          <option value="ipython" />
+          <option value="ipywidgets" />
+          <option value="isoduration" />
+          <option value="jedi" />
+          <option value="Jinja2" />
+          <option value="joblib" />
+          <option value="json5" />
+          <option value="jsonpointer" />
+          <option value="jsonschema" />
+          <option value="jsonschema-specifications" />
+          <option value="jupyter-events" />
+          <option value="jupyter-lsp" />
+          <option value="jupyter_client" />
+          <option value="jupyter_core" />
+          <option value="jupyter_server" />
+          <option value="jupyter_server_terminals" />
+          <option value="jupyterlab" />
+          <option value="jupyterlab_pygments" />
+          <option value="jupyterlab_server" />
+          <option value="jupyterlab_widgets" />
+          <option value="kiwisolver" />
+          <option value="llvmlite" />
+          <option value="lxml" />
+          <option value="MarkupSafe" />
+          <option value="matplotlib" />
+          <option value="matplotlib-inline" />
+          <option value="mistune" />
+          <option value="multimethod" />
+          <option value="nbclient" />
+          <option value="nbconvert" />
+          <option value="nbformat" />
+          <option value="nest-asyncio" />
+          <option value="networkx" />
+          <option value="notebook_shim" />
+          <option value="numba" />
+          <option value="numpy" />
+          <option value="overrides" />
+          <option value="packaging" />
+          <option value="pandas" />
+          <option value="pandocfilters" />
+          <option value="parso" />
+          <option value="patsy" />
+          <option value="pexpect" />
+          <option value="phik" />
+          <option value="pillow" />
+          <option value="platformdirs" />
+          <option value="prometheus_client" />
+          <option value="prompt-toolkit" />
+          <option value="psutil" />
+          <option value="ptyprocess" />
+          <option value="pure-eval" />
+          <option value="pycparser" />
+          <option value="pydantic" />
+          <option value="pydantic_core" />
+          <option value="Pygments" />
+          <option value="pyparsing" />
+          <option value="pyproj" />
+          <option value="pyshp" />
+          <option value="python-dateutil" />
+          <option value="python-json-logger" />
+          <option value="pytz" />
+          <option value="PyWavelets" />
+          <option value="PyYAML" />
+          <option value="pyzmq" />
+          <option value="referencing" />
+          <option value="requests" />
+          <option value="rfc3339-validator" />
+          <option value="rfc3986-validator" />
+          <option value="rpds-py" />
+          <option value="scikit-learn" />
+          <option value="scipy" />
+          <option value="seaborn" />
+          <option value="Send2Trash" />
+          <option value="shapely" />
+          <option value="six" />
+          <option value="sniffio" />
+          <option value="soupsieve" />
+          <option value="stack-data" />
+          <option value="statsmodels" />
+          <option value="terminado" />
+          <option value="threadpoolctl" />
+          <option value="tinycss2" />
+          <option value="tomli" />
+          <option value="tornado" />
+          <option value="tqdm" />
+          <option value="traitlets" />
+          <option value="typeguard" />
+          <option value="types-python-dateutil" />
+          <option value="typing_extensions" />
+          <option value="tzdata" />
+          <option value="uri-template" />
+          <option value="urllib3" />
+          <option value="visions" />
+          <option value="wcwidth" />
+          <option value="webcolors" />
+          <option value="webencodings" />
+          <option value="websocket-client" />
+          <option value="widgetsnbextension" />
+          <option value="woodwork" />
+          <option value="wordcloud" />
+          <option value="ydata-profiling" />
+          <option value="absl-py" />
+          <option value="accelerate" />
+          <option value="aiohappyeyeballs" />
+          <option value="aiohttp" />
+          <option value="aiosignal" />
+          <option value="alembic" />
+          <option value="babel" />
+          <option value="cfgv" />
+          <option value="click" />
+          <option value="colorlog" />
+          <option value="datasets" />
+          <option value="dill" />
+          <option value="distlib" />
+          <option value="evaluate" />
+          <option value="feature-engine" />
+          <option value="filelock" />
+          <option value="formulaic" />
+          <option value="frozenlist" />
+          <option value="fsspec" />
+          <option value="grpcio" />
+          <option value="huggingface-hub" />
+          <option value="identify" />
+          <option value="imbalanced-learn" />
+          <option value="interface-meta" />
+          <option value="ipython-pygments-lexers" />
+          <option value="jinja2" />
+          <option value="jupyter" />
+          <option value="jupyter-builder" />
+          <option value="jupyter-client" />
+          <option value="jupyter-console" />
+          <option value="jupyter-core" />
+          <option value="jupyter-server" />
+          <option value="jupyter-server-terminals" />
+          <option value="jupyterlab-pygments" />
+          <option value="jupyterlab-server" />
+          <option value="jupyterlab-widgets" />
+          <option value="lark" />
+          <option value="lightgbm" />
+          <option value="mako" />
+          <option value="markdown" />
+          <option value="markupsafe" />
+          <option value="mpmath" />
+          <option value="multidict" />
+          <option value="multiprocess" />
+          <option value="narwhals" />
+          <option value="nest-asyncio2" />
+          <option value="nodeenv" />
+          <option value="notebook" />
+          <option value="notebook-shim" />
+          <option value="opencv-python-headless" />
+          <option value="optuna" />
+          <option value="peft" />
+          <option value="pre-commit" />
+          <option value="prometheus-client" />
+          <option value="propcache" />
+          <option value="protobuf" />
+          <option value="pyarrow" />
+          <option value="pygments" />
+          <option value="python-discovery" />
+          <option value="pyyaml" />
+          <option value="regex" />
+          <option value="rfc3987-syntax" />
+          <option value="sacremoses" />
+          <option value="safetensors" />
+          <option value="scikit-surprise" />
+          <option value="send2trash" />
+          <option value="sentencepiece" />
+          <option value="setuptools" />
+          <option value="sklearn-compat" />
+          <option value="sqlalchemy" />
+          <option value="sympy" />
+          <option value="tensorboard" />
+          <option value="tensorboard-data-server" />
+          <option value="tokenizers" />
+          <option value="torch" />
+          <option value="torchvision" />
+          <option value="transformers" />
+          <option value="typing-extensions" />
+          <option value="virtualenv" />
+          <option value="werkzeug" />
+          <option value="wrapt" />
+          <option value="xxhash" />
+          <option value="yarl" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyPep8Inspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="ignoredErrors">
+        <list>
+          <option value="E701" />
+          <option value="E501" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyPep8NamingInspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="ignoredErrors">
+        <list>
+          <option value="N801" />
+          <option value="N806" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyStubPackagesAdvertiser" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <list>
+          <option value="pandas-stubs==2.3.2.250926" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyTypeCheckerInspection" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="PyUnboundLocalVariableInspection" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="SpellCheckingInspection" enabled="false" level="TYPO" enabled_by_default="false">
+      <option name="processCode" value="true" />
+      <option name="processLiterals" value="true" />
+      <option name="processComments" value="true" />
+    </inspection_tool>
+  </profile>
+</component>
