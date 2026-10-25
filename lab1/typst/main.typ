@@ -105,7 +105,7 @@ Algorytm wykonuje 8 rekurencyjnych mnożeń macierzy rozmiaru $n slash 2$, więc
   ],
 )
 
-Algorytm wykonuje 7 rekurencyjnych mnożeń zamiast 8 (kosztem większej liczby dodawań), więc $T(n) = 7 T(n slash 2) + Theta(n^2)$, czyli złożoność wynosi $Theta(n^(log_2 7)) approx Theta(n^(2{,}81))$.
+Algorytm wykonuje 7 rekurencyjnych mnożeń zamiast 8 (kosztem większej liczby dodawań), więc $T(n) = 7 T(n slash 2) + Theta(n^2)$, czyli złożoność wynosi $Theta(n^(log_2 7)) approx Theta(n^(2,81))$.
 
 Na wykresach w następnym rozdziale linia przerywana i kropkowana to eksperymentalne dopasowanie prostej i paraboli do zmierzonych wyników Bineta i Strassena. To tylko trend. Oszacowaniem złożoności pozostają rekurencje powyżej, bo liczba operacji rośnie szybciej niż kwadrat.
 
@@ -159,7 +159,9 @@ C22 = add(sub(add(M1, M3), M2), M6)
 // Ustaw na true, gdy pliki .png już istnieją w projekcie
 #let pokaz-obrazy = true
 
-#let wykres(plik, opis) = figure(
+// Domyślnie zwykły "Rysunek N". Dla przybliżonych podajemy
+// kind: "przyblizony" i supplement: [Przybliżony rysunek] (osobna numeracja).
+#let wykres(plik, opis, kind: auto, supplement: auto) = figure(
   if pokaz-obrazy {
     image(plik, width: 90%)
   } else {
@@ -168,6 +170,8 @@ C22 = add(sub(add(M1, M3), M2), M6)
     ]
   },
   caption: opis,
+  kind: kind,
+  supplement: supplement,
 )
 
 = Wyniki pomiarów
@@ -183,7 +187,14 @@ Operacje zmiennoprzecinkowe liczymy jako sumę mnożeń oraz dodawań i odejmowa
   [Czas wykonania w zależności od rozmiaru macierzy $n$],
 )
 
-Przy $n = 100$ Strassen jest wyraźnie szybszy od Bineta. Skoki czasu wynikają z dopełniania do potęgi dwójki: na przykład 50 i 100 są liczone jako 64 i 128.
+#wykres(
+  "imgs/multiplication_time_close.png",
+  [Przybliżony wykres czasu wykonania w zależności od rozmiaru macierzy $n$],
+  kind: "przyblizony",
+  supplement: [Przybliżony rysunek],
+) <przybl-czas>
+
+Przy $n = 100$ Strassen jest wyraźnie szybszy od Bineta (zob. @przybl-czas). Skoki czasu wynikają z dopełniania do potęgi dwójki: na przykład 50 i 100 są liczone jako 64 i 128.
 
 == Liczba operacji mnożenia w zależności od rozmiaru macierzy
 
@@ -192,7 +203,14 @@ Przy $n = 100$ Strassen jest wyraźnie szybszy od Bineta. Skoki czasu wynikają 
   [Liczba operacji mnożenia w zależności od rozmiaru macierzy $n$],
 )
 
-Dla $n = 100$ (po dopełnieniu do 128) Binet wykonuje $128^3 = 2 thin 097 thin 152$ mnożeń, a Strassen $7^7 = 823 thin 543$.
+#wykres(
+  "imgs/mul_ops_close.png",
+  [Przybliżony wykres liczby operacji mnożenia w zależności od rozmiaru macierzy $n$],
+  kind: "przyblizony",
+  supplement: [Przybliżony rysunek],
+) <przybl-mnozenia>
+
+Dla $n = 100$ (po dopełnieniu do 128) Binet wykonuje $128^3 = 2 thin 097 thin 152$ mnożeń, a Strassen $7^7 = 823 thin 543$ (zob. @przybl-mnozenia).
 
 == Liczba operacji dodawania i odejmowania w zależności od rozmiaru macierzy
 
@@ -201,7 +219,40 @@ Dla $n = 100$ (po dopełnieniu do 128) Binet wykonuje $128^3 = 2 thin 097 thin 1
   [Liczba operacji dodawania i odejmowania w zależności od rozmiaru macierzy $n$],
 )
 
-Krzywa Strassena leży wyraźnie wyżej. To koszt siedmiu iloczynów złożonych z sum i różnic bloków. Operacje zmiennoprzecinkowe to suma tych dwóch wykresów: Strassen ma ich łącznie więcej niż Binet, bo oszczędność na mnożeniach nie równoważy dodatkowych dodawań. Mimo to jest szybszy, bo mnożenia skalarne w tej implementacji ważą więcej niż dodawania.
+#wykres(
+  "imgs/add_sub_ops_close.png",
+  [Przybliżony wykres liczby operacji dodawania i odejmowania w zależności od rozmiaru macierzy $n$],
+  kind: "przyblizony",
+  supplement: [Przybliżony rysunek],
+) <przybl-dodawania>
+
+Krzywa Strassena leży wyraźnie wyżej (zob. @przybl-dodawania). To koszt siedmiu iloczynów złożonych z sum i różnic bloków. Operacje zmiennoprzecinkowe to suma tych dwóch wykresów: Strassen ma ich łącznie więcej niż Binet, bo oszczędność na mnożeniach nie równoważy dodatkowych dodawań. Mimo to jest szybszy, bo mnożenia skalarne w tej implementacji ważą więcej niż dodawania.
+
+= Porównanie dokładności obliczeń
+
+Dokładność obu algorytmów rekurencyjnych oraz algorytmu AlphaTensor sprawdziliśmy, porównując ich wyniki z wynikiem mnożenia w GNU Octave 8.4.0. Test wykonano na losowych macierzach $A, B in RR^(4 times 4)$, a iloczyn obliczony w Octave, $C^"Oct" = A B$, potraktowano jako wartość odniesienia.
+
+Dla wyniku $C$ uzyskanego daną metodą obliczono dwie miary błędu, w obu przypadkach jako maksimum po wszystkich elementach macierzy:
+
+$ E_"abs" = max_(i,j) |C_(i j) - C^"Oct"_(i j)| , $
+
+$ E_"rel" = max_(i,j) |C_(i j) - C^"Oct"_(i j)| / |C^"Oct"_(i j)| . $
+
+Pierwsza miara to maksymalny błąd bezwzględny, a druga maksymalny błąd względny, czyli błąd odniesiony do wartości elementu z Octave.
+
+#figure(
+  table(
+    columns: 3,
+    align: center + horizon,
+    table.header[*Metoda*][*Błąd bezwzględny $E_"abs"$*][*Błąd względny $E_"rel"$*],
+    [Binet],       [$2,220 dot 10^(-16)$], [$2,210 dot 10^(-16)$],
+    [Strassen],    [$6,661 dot 10^(-16)$], [$2,279 dot 10^(-15)$],
+    [AlphaTensor], [$1,332 dot 10^(-15)$], [$4,177 dot 10^(-15)$],
+  ),
+  caption: [Błędy obliczeń względem GNU Octave 8.4.0 dla losowej macierzy $4 times 4$],
+) <tab-dokladnosc>
+
+
 
 = Kompilacja
 
