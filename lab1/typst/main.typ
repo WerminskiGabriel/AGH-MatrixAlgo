@@ -252,11 +252,24 @@ Pierwsza miara to maksymalny błąd bezwzględny, a druga maksymalny błąd wzgl
   caption: [Błędy obliczeń względem GNU Octave 8.4.0 dla losowej macierzy $4 times 4$],
 ) <tab-dokladnosc>
 
+= Złożoność teoretyczna a eksperymentalna
 
+Wykładnik $k$ w zależności $M(n) tilde.op n^k$ dla liczby operacji mnożenia wyznaczono eksperymentalnie jako współczynnik kierunkowy prostej dopasowanej metodą najmniejszych kwadratów do zmierzonych liczb mnożeń w skali logarytmicznej. Użyto rozmiarów będących potęgami dwójki, $n in {4, 8, 16, 32, 64, 128, 256}$, bo dla nich nie występuje dopełnianie, które zaburzałoby wynik. Liczba mnożeń jest dla tych rozmiarów równa dokładnie $n^3$ (Binet) oraz $7^(log_2 n)$ (Strassen), dlatego błąd standardowego dopasowania wynosi $0,000$.
+
+#figure(
+  table(
+    columns: 3,
+    align: center + horizon,
+    table.header[*Metoda*][*Wykładnik teoretyczny*][*Wykładnik eksperymentalny $k$*],
+    [Binet],    [$3$],                           [$3,000 plus.minus 0,000$],
+    [Strassen], [$log_2 7 approx 2,807$],        [$2,807 plus.minus 0,000$],
+  ),
+  caption: [Teoretyczny i eksperymentalny wykładnik złożoności liczby operacji mnożenia],
+) <tab-zlozonosc>
 
 = Kompilacja
 
-Żeby program nie został w postaci interpretowanego skryptu Pythona, notatnik zamieniliśmy na plik źródłowy, a następnie skompilowaliśmy go narzędziem Nuitka. Nuitka tłumaczy ten plik na C i buduje z niego samodzielny plik wykonywalny. Do linkowania na Linuksie potrzebny jest `patchelf`.
+Program można skompilować, jeśli nie chcemy uruchamiać go jako interpretowanego skryptu Pythona. W tym celu wystarczy zamienić notatnik na plik źródłowy, a następnie zbudować go narzędziem Nuitka, które tłumaczy ten plik na C i tworzy z niego samodzielny plik wykonywalny. Do linkowania na Linuksie potrzebny jest `patchelf`.
 
 ```bash
 jupyter nbconvert --to script lab1.ipynb --output lab1.py
