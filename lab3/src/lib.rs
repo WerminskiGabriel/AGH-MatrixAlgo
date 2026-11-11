@@ -1,9 +1,9 @@
-pub mod io_stats;
-pub mod svd_utils;
+pub mod experiments;
+pub mod svd;
 pub mod tree;
-pub mod visualizer;
+pub mod visual;
 
-pub use io_stats::*;
-pub use svd_utils::*;
+pub use experiments::*;
+pub use svd::*;
 pub use tree::*;
-pub use visualizer::*;
+pub use visual::*;
