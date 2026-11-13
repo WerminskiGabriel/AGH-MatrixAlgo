@@ -1,0 +1,6 @@
+matrix,dim,max_abs_diff,rel_diff_sigma1
+hand_example_4x4,4x4,3.552714e-15,2.084731e-16
+image_slice_16x16,16x16,3.410605e-13,7.602815e-16
+channel_r,512x512,1.455192e-11,2.369715e-16
+channel_g,512x512,8.731149e-11,1.877795e-15
+channel_b,512x512,1.455192e-11,2.834658e-16

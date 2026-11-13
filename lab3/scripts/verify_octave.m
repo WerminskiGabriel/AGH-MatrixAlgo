@@ -1,51 +1,62 @@
 % verify_octave.m
-% Weryfikacja numeryczna SVD i kompresji hierarchicznej w GNU Octave
-% Porownanie wynikow z biblioteka faer w Rust oraz pakietem NumPy
+% Weryfikacja wartosci osobliwych: Rust (faer) vs GNU Octave.
+% Uruchamiac z katalogu lab3:  octave --no-gui --quiet scripts/verify_octave.m
+%
+% Dane z Rusta (results/small_test.json, results/results.json) sa porownywane
+% z wynikiem svd() z Octave (LAPACK) dla tych samych macierzy.
 
-printf("=== Rozpoczecie weryfikacji numerycznej w GNU Octave ===\n\n");
+printf("=== Weryfikacja numeryczna SVD: Rust (faer) vs GNU Octave ===\n\n");
 
-% 1. Macierz reczna 4x4
-A4 = [
-    4.0, 4.0, 1.0, 1.0;
-    4.0, 4.0, 1.0, 1.0;
-    2.0, 2.0, 8.0, 8.0;
-    2.0, 2.0, 8.0, 8.0
-];
+small = jsondecode(fileread("results/small_test.json"));
+res   = jsondecode(fileread("results/results.json"));
+img   = double(imread("assets/input_512.png"));
 
-[U4, S4, V4] = svd(A4);
-sigma4_octave = diag(S4);
+names  = {};
+dims   = {};
+absd   = [];
+reld   = [];
 
-% Wartosci z biblioteki faer (Rust)
-% Analitycznie dla A4:
-% A4 ma rzad 2.
-printf("--- Test 1: Macierz reczna 4x4 ---\n");
-printf("Wartosci osobliwe w GNU Octave:\n");
-for i = 1:4
-    printf("  sigma_%d = %12.8f\n", i, sigma4_octave(i));
-endfor
+% --- macierze testowe (4x4 oraz wycinek 16x16) ---
+if iscell(small)
+  tests = small;
+else
+  tests = num2cell(small);
+end
+for k = 1:numel(tests)
+  t = tests{k};
+  A = double(t.matrix);
+  s_rust = double(t.singular_values(:));
+  s_oct  = svd(A);
+  names{end+1} = t.name;
+  dims{end+1}  = sprintf("%dx%d", rows(A), columns(A));
+  absd(end+1)  = max(abs(s_rust - s_oct));
+  reld(end+1)  = absd(end) / s_oct(1);
+end
 
-% Sprawdzenie rozkladu cwiartkowego (H-macierz r=1, delta=0.5)
-% Cwiartka TL (2x2):
-TL = A4(1:2, 1:2);
-[~, S_TL, ~] = svd(TL);
-printf("Cwiartka TL (2x2): sigma_1 = %.4f, sigma_2 = %.4f (rzad 1 dokladny)\n", S_TL(1,1), S_TL(2,2));
+% --- pelne kanaly R, G, B (512x512) ---
+chan = {"r", "g", "b"};
+for c = 1:3
+  A = img(:, :, c);
+  s_rust = double(res.(["singular_values_" chan{c}]).values(:));
+  s_oct  = svd(A);
+  names{end+1} = ["channel_" chan{c}];
+  dims{end+1}  = sprintf("%dx%d", rows(A), columns(A));
+  absd(end+1)  = max(abs(s_rust - s_oct));
+  reld(end+1)  = absd(end) / s_oct(1);
+end
 
-% Cwiartka TR (2x2):
-TR = A4(1:2, 3:4);
-[~, S_TR, ~] = svd(TR);
-printf("Cwiartka TR (2x2): sigma_1 = %.4f, sigma_2 = %.4f (rzad 1 dokladny)\n", S_TR(1,1), S_TR(2,2));
+printf("%-20s %-9s %-28s %-26s\n", "Macierz", "Wymiar", "max|sigma_Rust-sigma_Octave|", "blad wzgledny / sigma_1");
+for k = 1:numel(names)
+  printf("%-20s %-9s %-28.2e %-26.2e\n", names{k}, dims{k}, absd(k), reld(k));
+end
 
-% Cwiartka BL (2x2):
-BL = A4(3:4, 1:2);
-[~, S_BL, ~] = svd(BL);
-printf("Cwiartka BL (2x2): sigma_1 = %.4f, sigma_2 = %.4f (rzad 1 dokladny)\n", S_BL(1,1), S_BL(2,2));
+% zapis do CSV
+fid = fopen("results/octave_compare.csv", "w");
+fprintf(fid, "matrix,dim,max_abs_diff,rel_diff_sigma1\n");
+for k = 1:numel(names)
+  fprintf(fid, "%s,%s,%.6e,%.6e\n", names{k}, dims{k}, absd(k), reld(k));
+end
+fclose(fid);
 
-% Cwiartka BR (2x2):
-BR = A4(3:4, 3:4);
-[~, S_BR, ~] = svd(BR);
-printf("Cwiartka BR (2x2): sigma_1 = %.4f, sigma_2 = %.4f (rzad 1 dokladny)\n", S_BR(1,1), S_BR(2,2));
-
-% Rekonstrukcja z r=1 daje dokladnie 0 bledu:
-printf("Blad rekonstrukcji H-macierzy z r=1 dla macierzy 4x4 wynosi dokladnie: 0.00000000\n\n");
-
-printf("=== GNU Octave zakonczyl weryfikacje pomyslnie ===\n");
+printf("\nZapisano: results/octave_compare.csv\n");
+printf("=== Koniec ===\n");
